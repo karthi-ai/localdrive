@@ -82,6 +82,8 @@ function App() {
   const [newUserName, setNewUserName] = useState('');
   const [newUserEmail, setNewUserEmail] = useState('');
   const [newUserPassword, setNewUserPassword] = useState('');
+  const [passwordUser, setPasswordUser] = useState(null);
+  const [adminNewPassword, setAdminNewPassword] = useState('');
 
   const isAdmin = auth?.user?.email === 'admin@o2k.local';
   const headers = auth ? { Authorization: 'Bearer ' + auth.token } : {};
@@ -193,6 +195,15 @@ function App() {
     setPassword('');
   };
 
+  const backToWorkspaces = () => {
+    setSelectedRegion(null);
+    setWorkspace(null);
+    setParentId(null);
+    setQuery('');
+    setView('drive');
+    setError('');
+  };
+
   const createFolder = async (event) => {
     event.preventDefault();
     setBusy(true);
@@ -299,6 +310,37 @@ function App() {
       alert(err.message);
     } finally {
       setBusy(false);
+    }
+  };
+
+  const changeUserPassword = async (event) => {
+    event.preventDefault();
+    setBusy(true);
+    try {
+      await req('/admin/users/' + passwordUser.id + '/password', {
+        method: 'PATCH',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newPassword: adminNewPassword })
+      });
+      setPasswordUser(null);
+      setAdminNewPassword('');
+      showToast('Password changed successfully');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const removeUser = async (user) => {
+    if (user.id === auth.user.id) return;
+    if (!confirm('Remove ' + user.name + '? Their workspace access and active sessions will be revoked.')) return;
+    try {
+      await req('/admin/users/' + user.id, { method: 'DELETE', headers });
+      setUsers(users.filter((item) => item.id !== user.id));
+      showToast('User removed');
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -479,6 +521,7 @@ function App() {
         }}
       >
         <header>
+          <button className="back-workspaces" onClick={backToWorkspaces} title="Back to workspaces" aria-label="Back to workspaces">←</button>
           <div className="mobile-brand">O2K <span>Drive</span></div>
           {view !== 'admin' ? (
             <div className="search">
@@ -523,6 +566,7 @@ function App() {
                   <span>Email</span>
                   <span>ID</span>
                   <span>Status</span>
+                  <span>Actions</span>
                 </div>
                 {users.map(u => (
                   <div className="user-table-row" key={u.id}>
@@ -532,6 +576,10 @@ function App() {
                     <span className={'role-badge ' + (u.email === 'admin@o2k.local' ? 'role-owner' : 'role-editor')}>
                       {u.email === 'admin@o2k.local' ? 'Admin' : 'Active'}
                     </span>
+                    <div className="user-actions">
+                      <button onClick={() => { setPasswordUser(u); setAdminNewPassword(''); }}>Password</button>
+                      {u.id !== auth.user.id && <button className="btn-danger" onClick={() => removeUser(u)}>Remove</button>}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -660,6 +708,22 @@ function App() {
             <div className="modal-actions">
               <button type="button" onClick={() => setAddUserOpen(false)}>Cancel</button>
               <button className="primary" disabled={busy}>{busy ? 'Provisioning...' : 'Create Account'}</button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {passwordUser && (
+        <div className="overlay" onClick={() => setPasswordUser(null)}>
+          <form className="modal" onClick={(event) => event.stopPropagation()} onSubmit={changeUserPassword}>
+            <button type="button" className="close" onClick={() => setPasswordUser(null)}>✕</button>
+            <h2>Change Password</h2>
+            <p>Set a new password for {passwordUser.name}.</p>
+            <label>New Password</label>
+            <input autoFocus type="password" value={adminNewPassword} onChange={(event) => setAdminNewPassword(event.target.value)} placeholder="At least 8 characters" minLength="8" required />
+            <div className="modal-actions">
+              <button type="button" onClick={() => setPasswordUser(null)}>Cancel</button>
+              <button className="primary" disabled={busy}>{busy ? 'Updating...' : 'Change Password'}</button>
             </div>
           </form>
         </div>

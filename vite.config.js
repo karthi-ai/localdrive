@@ -5,6 +5,9 @@ export default defineConfig({
   plugins: [react()],
   root: '.',
   publicDir: false,
+  server: {
+    allowedHosts: ['o2kclouddrive.duckdns.org']
+  },
   build: {
     outDir: 'dist',
     emptyOutDir: true

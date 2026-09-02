@@ -268,6 +268,32 @@ app.post('/api/admin/users', auth, (req, res) => {
   res.status(201).json({ id: user.id, name: user.name, email: user.email });
 });
 
+app.patch('/api/admin/users/:userId/password', auth, (req, res) => {
+  if (req.user.email !== 'admin@o2k.local') return res.status(403).json({ error: 'Admin access required' });
+  const newPassword = String(req.body.newPassword || '');
+  if (newPassword.length < 8) return res.status(400).json({ error: 'Password must be at least 8 characters' });
+  const user = db.users.find((item) => item.id === req.params.userId);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  user.password = hash(newPassword);
+  db.sessions = db.sessions.filter((session) => session.userId !== user.id);
+  save();
+  res.json({ ok: true });
+});
+
+app.delete('/api/admin/users/:userId', auth, (req, res) => {
+  if (req.user.email !== 'admin@o2k.local') return res.status(403).json({ error: 'Admin access required' });
+  if (req.params.userId === req.user.id) return res.status(400).json({ error: 'You cannot remove your own admin account' });
+  const user = db.users.find((item) => item.id === req.params.userId);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  db.users = db.users.filter((item) => item.id !== user.id);
+  db.sessions = db.sessions.filter((session) => session.userId !== user.id);
+  for (const project of db.projects) {
+    project.members = project.members.filter((member) => member.userId !== user.id);
+  }
+  save();
+  res.json({ ok: true });
+});
+
 app.get('/api/projects', auth, (req, res) => {
   res.json(db.projects.filter((project) => project.members.some((member) => member.userId === req.user.id)));
 });

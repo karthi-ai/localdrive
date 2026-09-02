@@ -84,6 +84,8 @@ function App() {
   const [newUserPassword, setNewUserPassword] = useState('');
   const [passwordUser, setPasswordUser] = useState(null);
   const [adminNewPassword, setAdminNewPassword] = useState('');
+  const [emailUser, setEmailUser] = useState(null);
+  const [adminNewEmail, setAdminNewEmail] = useState('');
 
   const isAdmin = auth?.user?.email === 'admin@o2k.local';
   const headers = auth ? { Authorization: 'Bearer ' + auth.token } : {};
@@ -325,6 +327,26 @@ function App() {
       setPasswordUser(null);
       setAdminNewPassword('');
       showToast('Password changed successfully');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const changeUserEmail = async (event) => {
+    event.preventDefault();
+    setBusy(true);
+    try {
+      const updatedUser = await req('/admin/users/' + emailUser.id + '/email', {
+        method: 'PATCH',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: adminNewEmail })
+      });
+      setUsers(users.map((user) => user.id === updatedUser.id ? updatedUser : user));
+      setEmailUser(null);
+      setAdminNewEmail('');
+      showToast('Email changed successfully');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -577,6 +599,7 @@ function App() {
                       {u.email === 'admin@o2k.local' ? 'Admin' : 'Active'}
                     </span>
                     <div className="user-actions">
+                      <button onClick={() => { setEmailUser(u); setAdminNewEmail(u.email); }}>Email</button>
                       <button onClick={() => { setPasswordUser(u); setAdminNewPassword(''); }}>Password</button>
                       {u.id !== auth.user.id && <button className="btn-danger" onClick={() => removeUser(u)}>Remove</button>}
                     </div>
@@ -724,6 +747,22 @@ function App() {
             <div className="modal-actions">
               <button type="button" onClick={() => setPasswordUser(null)}>Cancel</button>
               <button className="primary" disabled={busy}>{busy ? 'Updating...' : 'Change Password'}</button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {emailUser && (
+        <div className="overlay" onClick={() => setEmailUser(null)}>
+          <form className="modal" onClick={(event) => event.stopPropagation()} onSubmit={changeUserEmail}>
+            <button type="button" className="close" onClick={() => setEmailUser(null)}>✕</button>
+            <h2>Change Email</h2>
+            <p>Update the sign-in email for {emailUser.name}.</p>
+            <label>Email Address</label>
+            <input autoFocus type="email" value={adminNewEmail} onChange={(event) => setAdminNewEmail(event.target.value)} required />
+            <div className="modal-actions">
+              <button type="button" onClick={() => setEmailUser(null)}>Cancel</button>
+              <button className="primary" disabled={busy}>{busy ? 'Updating...' : 'Change Email'}</button>
             </div>
           </form>
         </div>

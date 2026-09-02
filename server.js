@@ -280,6 +280,21 @@ app.patch('/api/admin/users/:userId/password', auth, (req, res) => {
   res.json({ ok: true });
 });
 
+app.patch('/api/admin/users/:userId/email', auth, (req, res) => {
+  if (req.user.email !== 'admin@o2k.local') return res.status(403).json({ error: 'Admin access required' });
+  const email = String(req.body.email || '').trim().toLowerCase();
+  if (!/^\S+@\S+\.\S+$/.test(email)) return res.status(400).json({ error: 'Enter a valid email address' });
+  const user = db.users.find((item) => item.id === req.params.userId);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  if (db.users.some((item) => item.id !== user.id && item.email.toLowerCase() === email)) {
+    return res.status(409).json({ error: 'This email already has an account' });
+  }
+  user.email = email;
+  db.sessions = db.sessions.filter((session) => session.userId !== user.id);
+  save();
+  res.json({ id: user.id, name: user.name, email: user.email });
+});
+
 app.delete('/api/admin/users/:userId', auth, (req, res) => {
   if (req.user.email !== 'admin@o2k.local') return res.status(403).json({ error: 'Admin access required' });
   if (req.params.userId === req.user.id) return res.status(400).json({ error: 'You cannot remove your own admin account' });

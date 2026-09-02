@@ -1,0 +1,207 @@
+{
+  "users": [
+    {
+      "id": "u-admin",
+      "name": "O2K Administrator",
+      "email": "admin@o2k.local",
+      "password": {
+        "salt": "108bbe68e024b73d02c960b4e2112d51",
+        "value": "a9ed3c9d5f89a926b3bda1c76d944bc423c7c9d5cf4550475018ed9c58209d847f5bb788933e55902b9e5297cee31ce23ebabdce899b66aa1e0d3ed154654bb2"
+      }
+    },
+    {
+      "id": "u-pune",
+      "name": "Pune Regional Owner",
+      "email": "pune@o2k.local",
+      "password": {
+        "salt": "71a77510e1c7196663a5afeeb8876f74",
+        "value": "83f853b2a85e254f238923a93e99332bbe8936cc72403b7835a736068e65e58330de5dce2ada74d3ebdc0970a1a8ead9ffc6303aa2231f81a04d9ac1eeab7ec8"
+      }
+    },
+    {
+      "id": "u-ncr",
+      "name": "NCR Regional Owner",
+      "email": "ncr@o2k.local",
+      "password": {
+        "salt": "eda65473cfd1a1135644e523a336f6f1",
+        "value": "6aa21f87130ed1345c36207c09121902908976aac7f2158a091e38e8cd06e121d08da66ce9fb9f8d9b9e834e28029faff52f8c13ba656a78a566d94bf9671b91"
+      }
+    },
+    {
+      "id": "u-kerala",
+      "name": "Kerala Regional Owner",
+      "email": "kerala@o2k.local",
+      "password": {
+        "salt": "5ee5dc2a88ece1d76f67de7ad5167252",
+        "value": "3935576ae1f38e1fa6a44f7a0f020f759cd34f0cc2e483870e735cfe2073bc436bfd77cb43f061be1a620b9ca6e3130f622aa9e0cd2057da17268e9186a690a5"
+      }
+    },
+    {
+      "id": "u-chennai",
+      "name": "Chennai Regional Owner",
+      "email": "chennai@o2k.local",
+      "password": {
+        "salt": "cdb838fe3a7334f4421977594d489a50",
+        "value": "5b3c4cae096dc2200348a871d9b77ee391ac355bdbe4fdbb72cb2cf064fceaa65807547dec621385ab58c6606625a6a98820995ace1afcd750a292fe5621b51a"
+      }
+    },
+    {
+      "id": "u-bangalore",
+      "name": "Bangalore Regional Owner",
+      "email": "bangalore@o2k.local",
+      "password": {
+        "salt": "aa0fad429746d90fecec13a465252c57",
+        "value": "13d5088356c875719b6e906b5a38bf71196395c6c090cb16466d2f2eec446ac15232c30992f89b3aa597c7897053330ad85d85f70724a69899a791b42024576a"
+      }
+    },
+    {
+      "id": "u-hyderabad",
+      "name": "Hyderabad Regional Owner",
+      "email": "hyderabad@o2k.local",
+      "password": {
+        "salt": "058f1357b925bc0d6002f74d9ac12791",
+        "value": "e67ea9363b52f1e6f18cceda2629efbba8b609eaf0e21f276213d8c125e9c6ec257c09d2c7451996214f876d38fb16d9ad09a0908355ee36e51cd09114ab7c41"
+      }
+    }
+  ],
+  "projects": [
+    {
+      "id": "region-pun-001",
+      "name": "Pune",
+      "code": "PUN-001",
+      "members": [
+        {
+          "userId": "u-admin",
+          "role": "owner"
+        },
+        {
+          "userId": "u-pune",
+          "role": "owner"
+        }
+      ]
+    },
+    {
+      "id": "region-ncr-002",
+      "name": "NCR",
+      "code": "NCR-002",
+      "members": [
+        {
+          "userId": "u-admin",
+          "role": "owner"
+        },
+        {
+          "userId": "u-ncr",
+          "role": "owner"
+        }
+      ]
+    },
+    {
+      "id": "region-ker-003",
+      "name": "Kerala",
+      "code": "KER-003",
+      "members": [
+        {
+          "userId": "u-admin",
+          "role": "owner"
+        },
+        {
+          "userId": "u-kerala",
+          "role": "owner"
+        }
+      ]
+    },
+    {
+      "id": "region-che-004",
+      "name": "Chennai",
+      "code": "CHE-004",
+      "members": [
+        {
+          "userId": "u-admin",
+          "role": "owner"
+        },
+        {
+          "userId": "u-chennai",
+          "role": "owner"
+        }
+      ]
+    },
+    {
+      "id": "region-blr-005",
+      "name": "Bangalore",
+      "code": "BLR-005",
+      "members": [
+        {
+          "userId": "u-admin",
+          "role": "owner"
+        },
+        {
+          "userId": "u-bangalore",
+          "role": "owner"
+        }
+      ]
+    },
+    {
+      "id": "region-hyd-006",
+      "name": "Hyderabad",
+      "code": "HYD-006",
+      "members": [
+        {
+          "userId": "u-admin",
+          "role": "owner"
+        },
+        {
+          "userId": "u-hyderabad",
+          "role": "owner"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "id": "fc2f6b79-47b0-442b-a959-d2674ed1e436",
+      "projectId": "region-che-004",
+      "parentId": null,
+      "name": ".gitignore",
+      "type": "file",
+      "owner": "Chennai Regional Owner",
+      "size": 253,
+      "createdAt": "2026-08-21T21:35:04.663Z",
+      "diskName": "1787348104279-.gitignore",
+      "deletedAt": null
+    },
+    {
+      "id": "7b229292-cc83-40f9-b63c-bc595eed38a0",
+      "projectId": "region-pun-001",
+      "parentId": null,
+      "name": "lorry1.csv",
+      "type": "csv",
+      "owner": "O2K Administrator",
+      "size": 62515,
+      "createdAt": "2026-09-02T13:18:39.751Z",
+      "diskName": "1788355119730-lorry1.csv",
+      "deletedAt": null
+    }
+  ],
+  "sessions": [
+    {
+      "token": "f3631a65a97c49b1feeeaef1f21a88b1f588778e3ab9cd027de821f9d627ff89",
+      "userId": "u-chennai",
+      "createdAt": "2026-08-21T21:34:49.259Z"
+    },
+    {
+      "token": "ff8e96b5ee71e9a2b9224379ede3ffb04222e49e15df92828fd497c245ccc736",
+      "userId": "u-admin",
+      "createdAt": "2026-09-02T13:20:05.722Z"
+    },
+    {
+      "token": "f9d2418bdf24918015ebe8e6f19c8335d58acb25a59025cdebd4e36b75c76d65",
+      "userId": "u-admin",
+      "createdAt": "2026-09-02T13:43:22.343Z"
+    },
+    {
+      "token": "173e9b9015f567e75067169eccc1d0a9619cb53b78d3cdea12a9036472b35013",
+      "userId": "u-admin",
+      "createdAt": "2026-09-02T13:45:34.563Z"
+    }
+  ]
+}

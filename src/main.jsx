@@ -388,12 +388,10 @@ function App() {
         
         <form className="login-card" onSubmit={handleAuth}>
           <div className="login-logo-wrap">
-            <div className="o2k-mark">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                <polyline points="3.29 7 12 12 20.71 7"></polyline>
-                <line x1="12" y1="22" x2="12" y2="12"></line>
-              </svg>
+            <div className="o2k-mark logo-wordmark" aria-label="O2K CloudDrive">
+              <span className="logo-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+              <strong>O2K</strong>
+              <span>CloudDrive</span>
             </div>
             <div>
               <h1 className="login-title">O2K <span>Drive</span></h1>
@@ -434,16 +432,7 @@ function App() {
     return (
       <div className="region-entry">
         <div className="entry-top">
-          <div className="brand">
-            <div className="brandmark">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                <polyline points="3.29 7 12 12 20.71 7"></polyline>
-                <line x1="12" y1="22" x2="12" y2="12"></line>
-              </svg>
-            </div>
-            <span className="brand-text">O2K <span>Drive</span></span>
-          </div>
+          <div className="brand logo-lockup" aria-label="O2K CloudDrive"><span className="logo-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span><strong>O2K</strong><span>CloudDrive</span></div>
           <div className="entry-actions">
             <button className="theme-toggle" onClick={toggleTheme} aria-label={'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode'}>
               {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
@@ -486,16 +475,7 @@ function App() {
   return (
     <div className="app-shell">
       <aside className="sidebar">
-        <div className="brand">
-          <div className="brandmark">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-              <polyline points="3.29 7 12 12 20.71 7"></polyline>
-              <line x1="12" y1="22" x2="12" y2="12"></line>
-            </svg>
-          </div>
-          <span className="brand-text">O2K <span>Drive</span></span>
-        </div>
+        <div className="brand logo-lockup" aria-label="O2K CloudDrive"><span className="logo-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span><strong>O2K</strong><span>CloudDrive</span></div>
         
         {view !== 'admin' && <button className="new-btn" onClick={() => setUploadOpen(true)}>+ New Upload</button>}
         
@@ -544,7 +524,7 @@ function App() {
       >
         <header>
           <button className="back-workspaces" onClick={backToWorkspaces} title="Back to workspaces" aria-label="Back to workspaces">←</button>
-          <div className="mobile-brand">O2K <span>Drive</span></div>
+          <div className="mobile-brand logo-lockup"><span className="logo-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span><strong>O2K</strong><span>CloudDrive</span></div>
           {view !== 'admin' ? (
             <div className="search">
               <span className="search-icon">🔍</span>
